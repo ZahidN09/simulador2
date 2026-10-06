@@ -49,7 +49,15 @@ function guardarCliente() {
     ingresos: ingresosFormulario,
     egresos: egresosFormulario
   }
-  clientes.push(cliente);
+
+  let clienteEncontrado = buscarCliente(cliente.cedula);
+
+  if(clienteEncontrado == null){
+    clientes.push(cliente);
+  }else{
+    modificarCliente(cliente);
+  }
+  
 }
 
 function pintarClientes() {
@@ -90,4 +98,14 @@ function seleccionarCliente(cedula){
   mostrarTextoEnCaja("txtApellido",clienteSeleccionado.apellido);
   mostrarTextoEnCaja("txtIngresos",clienteSeleccionado.ingresos);
   mostrarTextoEnCaja("txtEgresos",clienteSeleccionado.egresos);
+}
+
+function modificarCliente(cliente) {
+    let clienteEncontrado = buscarCliente(cliente.cedula);
+    if (clienteEncontrado != null) {
+        clienteEncontrado.nombre = cliente.nombre;
+        clienteEncontrado.apellido = cliente.apellido;
+        clienteEncontrado.ingresos = cliente.ingresos;
+        clienteEncontrado.egresos = cliente.egresos;
+    }
 }
