@@ -64,10 +64,30 @@ function pintarClientes() {
       "<td>"+clientes[i].ingresos+"</td>" +
       "<td>"+clientes[i].egresos+"</td>" +
       "<td>" +
-      "<button>Actualizar</button>" +
+      "<button onclick='seleccionarCliente("+clientes[i].cedula+")'>Actualizar</button>" +
       "<button>Eliminar</button>" +
       "</td>" + "</tr>"
   }
 
   cmpTabla.innerHTML = contenido;
+}
+
+function buscarCliente(cedula) {
+    let clienteEncontrado = null;
+    for (let i = 0; i < clientes.length; i++) {
+        if (clientes[i].cedula == cedula) {
+            clienteEncontrado = clientes[i];
+            break
+        }
+    }
+    return clienteEncontrado;
+}
+
+function seleccionarCliente(cedula){
+  let clienteSeleccionado = buscarCliente(cedula);
+  mostrarTextoEnCaja("txtCedula",clienteSeleccionado.cedula);
+  mostrarTextoEnCaja("txtNombre",clienteSeleccionado.nombre);
+  mostrarTextoEnCaja("txtApellido",clienteSeleccionado.apellido);
+  mostrarTextoEnCaja("txtIngresos",clienteSeleccionado.ingresos);
+  mostrarTextoEnCaja("txtEgresos",clienteSeleccionado.egresos);
 }
