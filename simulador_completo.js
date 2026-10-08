@@ -117,3 +117,20 @@ function limpiar() {
   mostrarTextoEnCaja("txtIngresos", "");
   mostrarTextoEnCaja("txtEgresos", "");
 }
+
+function buscarClienteCredito() {
+  let cedula = recuperaraTexto("buscarCedulaCredito");
+  let clienteEncontrado = buscarCliente(cedula);
+  let cmpDatos = document.getElementById("datosClienteCredito");
+  let contenido = "<h3>Cliente No Encontrado</h3>";
+  if (clienteEncontrado != null) {
+    contenido = "<h3>Datos del Cliente</h3>" +
+      "<p><strong>Cédula:</strong>" + clienteEncontrado.cedula + "</p>" +
+      "<p><strong>Nombre:</strong>" + clienteEncontrado.nombre + "</p>" +
+      "<p><strong>Apellido:</strong>" + clienteEncontrado.apellido + "</p>" +
+      "<p><strong>Ingresos:</strong>" + clienteEncontrado.ingresos + "</p>" +
+      "<p><strong>Egresos:</strong>" + clienteEncontrado.egresos + "</p>";
+  }
+
+  cmpDatos.innerHTML = contenido;
+}
