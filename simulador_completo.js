@@ -27,6 +27,7 @@ function mostrarSeccion(id) {
 function guardarTasa() {
   let tasa = recuperarInt("tasaInteres");
   let mensaje = "";
+  tasaInteres = tasa;
 
   if (tasa >= 10 && tasa <= 20) {
     mensaje = "Tasa configurada correctamente: " + tasa + "%"
