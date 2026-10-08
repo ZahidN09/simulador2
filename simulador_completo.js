@@ -16,6 +16,7 @@ let creditoAprobado = false;
 function ocultarSecciones() {
   document.getElementById("parametros").classList.remove("activa");
   document.getElementById("clientes").classList.remove("activa");
+  document.getElementById("credito").classList.remove("activa");
 }
 
 function mostrarSeccion(id) {
