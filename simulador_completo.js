@@ -1,4 +1,3 @@
-
 let clientes = [{ cedula: "1712345678", nombre: "Juan", apellido: "Pérez", ingresos: 1200, egresos: 500 },
 { cedula: "1723456789", nombre: "María", apellido: "Gómez", ingresos: 1500, egresos: 600 },
 { cedula: "1734567890", nombre: "Carlos", apellido: "Ramírez", ingresos: 900, egresos: 350 }];
@@ -11,6 +10,123 @@ let cuotaCalculada = 0;
 let montoCalculado = 0;
 let plazoCalculado = 0;
 let creditoAprobado = false;
+
+
+/* =========================================================
+   MÓDULO DE VALIDACIÓN
+   ========================================================= */
+
+const REGLAS_VALIDACION = {
+  txtCedula: {
+    obligatorio: true,
+    validar: v => /^\d{10}$/.test(v),
+    mensaje: "La cédula debe tener exactamente 10 dígitos numéricos"
+  },
+  txtNombre: {
+    obligatorio: true,
+    validar: v => /^[A-Za-zÁÉÍÓÚáéíóúÑñÜü\s]+$/.test(v),
+    mensaje: "El nombre solo debe contener letras"
+  },
+  txtApellido: {
+    obligatorio: true,
+    validar: v => /^[A-Za-zÁÉÍÓÚáéíóúÑñÜü\s]+$/.test(v),
+    mensaje: "El apellido solo debe contener letras"
+  },
+  txtIngresos: {
+    obligatorio: true,
+    validar: v => !isNaN(Number(v)) && Number(v) > 0,
+    mensaje: "Los ingresos deben ser un número mayor a 0"
+  },
+  txtEgresos: {
+    obligatorio: true,
+    validar: v => !isNaN(Number(v)) && Number(v) >= 0,
+    mensaje: "Los egresos deben ser un número mayor o igual a 0"
+  },
+  buscarCedulaCredito: {
+    obligatorio: true,
+    validar: v => /^\d{10}$/.test(v),
+    mensaje: "La cédula debe tener exactamente 10 dígitos numéricos"
+  },
+  montoCredito: {
+    obligatorio: true,
+    validar: v => !isNaN(Number(v)) && Number(v) > 0,
+    mensaje: "El monto debe ser un número mayor a 0"
+  },
+  plazoCredito: {
+    obligatorio: true,
+    validar: v => /^\d+$/.test(v) && Number(v) > 0,
+    mensaje: "El plazo debe ser un número entero de años mayor a 0"
+  }
+};
+
+function mostrarErrorCampo(id, mensaje) {
+  const input = document.getElementById(id);
+  const errorSpan = document.getElementById("error-" + id);
+  if (!input || !errorSpan) return;
+  errorSpan.textContent = mensaje;
+  errorSpan.classList.add("visible");
+  input.classList.add("campo-error");
+}
+
+function limpiarErrorCampo(id) {
+  const input = document.getElementById(id);
+  const errorSpan = document.getElementById("error-" + id);
+  if (!input || !errorSpan) return;
+  errorSpan.textContent = "";
+  errorSpan.classList.remove("visible");
+  input.classList.remove("campo-error");
+}
+
+function validarCampo(id) {
+  const regla = REGLAS_VALIDACION[id];
+  if (!regla) return true;
+
+  const input = document.getElementById(id);
+  const valor = (input.value || "").trim();
+
+  if (valor === "") {
+    if (regla.obligatorio) {
+      mostrarErrorCampo(id, "Este campo es obligatorio");
+      return false;
+    }
+    limpiarErrorCampo(id);
+    return true;
+  }
+
+  if (!regla.validar(valor)) {
+    mostrarErrorCampo(id, regla.mensaje);
+    return false;
+  }
+
+  limpiarErrorCampo(id);
+  return true;
+}
+
+function validarGrupo(ids) {
+  let valido = true;
+  let primerCampoInvalido = null;
+  for (let i = 0; i < ids.length; i++) {
+    if (!validarCampo(ids[i])) {
+      valido = false;
+      if (primerCampoInvalido === null) primerCampoInvalido = ids[i];
+    }
+  }
+  if (primerCampoInvalido) {
+    const input = document.getElementById(primerCampoInvalido);
+    if (input) input.focus();
+  }
+  return valido;
+}
+
+function limpiarErroresGrupo(ids) {
+  for (let i = 0; i < ids.length; i++) {
+    limpiarErrorCampo(ids[i]);
+  }
+}
+
+/* =========================================================
+   FIN MÓDULO DE VALIDACIÓN
+   ========================================================= */
 
 
 function ocultarSecciones() {
@@ -59,10 +175,16 @@ function guardarCliente() {
   } else {
     modificarCliente(cliente);
   }
-
 }
 
 function pintarClientes() {
+  // ---- Validación antes de guardar (agregada) ----
+  const camposCliente = ["txtCedula", "txtNombre", "txtApellido", "txtIngresos", "txtEgresos"];
+  if (!validarGrupo(camposCliente)) {
+    return;
+  }
+  // ---- fin validación ----
+
   let cmpTabla = document.getElementById("tablaClientes");
   let contenido = "";
   guardarCliente();
@@ -118,9 +240,18 @@ function limpiar() {
   mostrarTextoEnCaja("txtApellido", "");
   mostrarTextoEnCaja("txtIngresos", "");
   mostrarTextoEnCaja("txtEgresos", "");
+
+  // ---- Limpieza de mensajes de error (agregada) ----
+  limpiarErroresGrupo(["txtCedula", "txtNombre", "txtApellido", "txtIngresos", "txtEgresos"]);
 }
 
 function buscarClienteCredito() {
+  // ---- Validación: solo cédula (agregada) ----
+  if (!validarCampo("buscarCedulaCredito")) {
+    return;
+  }
+  // ---- fin validación ----
+
   let cedula = recuperaraTexto("buscarCedulaCredito");
   let clienteEncontrado = buscarCliente(cedula);
   let cmpDatos = document.getElementById("datosClienteCredito");

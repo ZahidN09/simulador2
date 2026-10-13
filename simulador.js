@@ -1,5 +1,11 @@
 function calcularCredito() {
 
+    // ---- Validación previa (agregada) ----
+    if (!validarGrupo(["buscarCedulaCredito", "montoCredito", "plazoCredito"])) {
+        return;
+    }
+    // ---- fin validación ----
+
     let cedula = recuperaraTexto("buscarCedulaCredito");
     let clienteEncontrado = buscarCliente(cedula);
 

@@ -103,3 +103,40 @@
       margin-top: 10px;
     }
   
+    /* ==== Estilos para validación de campos ==== */
+.campo-form {
+  display: inline-block;
+  vertical-align: top;
+  margin: 4px 8px 4px 0;
+}
+
+.campo-form input {
+  display: block;
+}
+
+.error-mensaje {
+  display: block;
+  color: #e53935;
+  font-size: 11px;
+  line-height: 1.2;
+  margin-top: 2px;
+  min-height: 13px;         /* reserva el espacio para no mover el layout */
+  font-family: inherit;
+  font-weight: normal;
+  visibility: hidden;        /* oculto pero ocupando su lugar */
+}
+
+.error-mensaje.visible {
+  visibility: visible;
+}
+
+.campo-error {
+  border: 1px solid #e53935 !important;
+  outline: 1px solid #e53935;
+}
+
+.fila-campos {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
