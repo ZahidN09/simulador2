@@ -57,6 +57,11 @@ const REGLAS_VALIDACION = {
     obligatorio: true,
     validar: v => /^\d+$/.test(v) && Number(v) > 0,
     mensaje: "El plazo debe ser un número entero de años mayor a 0"
+  },
+  buscarCedulaListado: {
+    obligatorio: true,
+    validar: v => /^\d{10}$/.test(v),
+    mensaje: "La cédula debe tener exactamente 10 dígitos numéricos"
   }
 };
 
@@ -311,13 +316,23 @@ function pintarCreditos(creditos) {
       "<td>" + creditos[i].nombre + "</td>" +
       "<td>" + creditos[i].apellido + "</td>" +
       "<td>" + creditos[i].monto + "</td>" +
-      "<td>" + creditos[i].tasa + "</td>" +
-      "<td>" + creditos[i].plazo + "</td>" +
-      "<td>" + creditos[i].cuota + "</td>" +
+      "<td>" + creditos[i].tasa + "%" + "</td>" +
+      "<td>" + creditos[i].plazo + " meses" + "</td>" +
+      "<td>" + creditos[i].cuota.toFixed(2) + "</td>" +
       "<td>" +
       "<button>Eliminar</button>" +
       "</td>" + "</tr>"
   }
 
   cmpTabla.innerHTML = contenido;
+}
+
+function buscarCreditosCliente() {
+  if (!validarCampo("buscarCedulaListado")) {
+    return;
+  }
+  let cedula = recuperaraTexto("buscarCedulaListado");
+  let creditosCliente = buscarCreditos(cedula);
+  pintarCreditos(creditosCliente);
+
 }
