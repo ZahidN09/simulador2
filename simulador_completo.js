@@ -266,3 +266,25 @@ function buscarClienteCredito() {
 
   cmpDatos.innerHTML = contenido;
 }
+
+function solicitarCredito() {
+  if (!validarGrupo(["buscarCedulaCredito", "montoCredito", "plazoCredito"])) {
+    return;
+  }
+
+  let cedula = recuperaraTexto("buscarCedulaCredito");
+  let clienteSeleccionado = buscarCliente(cedula);
+
+  let nuevoCredito = {
+    cedula: clienteSeleccionado.cedula,
+    nombre: clienteSeleccionado.nombre,
+    apellido: clienteSeleccionado.apellido,
+
+    monto: monto,
+    tasa: tasa,
+    plazo: plazo,
+    cuota: cuota
+  };
+
+  creditos.push(nuevoCredito);
+}

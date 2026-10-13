@@ -1,3 +1,7 @@
+let monto;
+let plazo;
+let cuota;
+
 function calcularCredito() {
 
     // ---- Validación previa (agregada) ----
@@ -18,16 +22,16 @@ function calcularCredito() {
     let capacidadDePago = calcularCapacidadPago(saldo);
 
     //Calculo de interés simple
-    let monto = recuperarInt("montoCredito");
-    let plazo = recuperarInt("plazoCredito");
-    let tasa = tasaInteres;
+    monto = recuperarInt("montoCredito");
+    plazo = recuperarInt("plazoCredito");
+    tasa = tasaInteres;
     let interes = calcularInteresSimple(monto, tasa, plazo);
 
     //Calculo de total a pagar
     let total = calularTotalPagar(monto, interes);
 
     //Calculo de cuota mensual
-    let cuota = calcularCuotaMensual(total, plazo);
+    cuota = calcularCuotaMensual(total, plazo);
 
     //Analisis de crédito
     let estado = aprobarCredito(capacidadDePago, cuota);
