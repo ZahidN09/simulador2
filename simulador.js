@@ -35,9 +35,11 @@ function calcularCredito() {
     if (estado) {
         resultado = "APROBADO";
         document.getElementById("resultadoCredito").className = "aprobado";
+        document.getElementById("btnSolicitarCredito").disabled = false;
     } else {
         resultado = "RECHAZADO";
         document.getElementById("resultadoCredito").className = "rechazado";
+        document.getElementById("btnSolicitarCredito").disabled = true;
     }
 
     let cmpCredito = document.getElementById("resultadoCredito");
