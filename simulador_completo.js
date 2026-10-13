@@ -320,7 +320,7 @@ function pintarCreditos(creditos) {
       "<td>" + creditos[i].plazo + " meses" + "</td>" +
       "<td>" + creditos[i].cuota.toFixed(2) + "</td>" +
       "<td>" +
-      "<button>Eliminar</button>" +
+      "<button onclick='eliminarCredito("+i+");'>Eliminar</button>" +
       "</td>" + "</tr>"
   }
 
@@ -335,4 +335,9 @@ function buscarCreditosCliente() {
   let creditosCliente = buscarCreditos(cedula);
   pintarCreditos(creditosCliente);
 
+}
+
+function eliminarCredito(indice){
+  creditos.splice(indice,1);
+  pintarCreditos(creditos);
 }

@@ -15,7 +15,7 @@
   <button onclick="mostrarSeccion('parametros');">Parámetros</button>
   <button onclick="mostrarSeccion('clientes');">Clientes</button>
   <button onclick="mostrarSeccion('credito');">Créditos</button>
-  <button onclick="mostrarSeccion('listaCreditos');">Créditos Registrados</button>
+  <button onclick="mostrarSeccion('listaCreditos'); pintarCreditos(creditos);">Créditos Registrados</button>
 </nav>
 
 <section id="parametros">
@@ -171,7 +171,7 @@
           <td>15%</td>
           <td>12 meses</td>
           <td>287.50</td>
-          <td><button>Eliminar</button></td>
+          <td><button onclick="eliminarCredito(0);">Eliminar</button></td>
         </tr>
         <tr>
           <td>1723456789</td>
@@ -181,7 +181,7 @@
           <td>14%</td>
           <td>24 meses</td>
           <td>237.50</td>
-          <td><button>Eliminar</button></td>
+          <td><button onclick="eliminarCredito(1);">Eliminar</button></td>
         </tr>
         <tr>
           <td>1734567890</td>
@@ -191,7 +191,7 @@
           <td>16%</td>
           <td>6 meses</td>
           <td>290.00</td>
-          <td><button>Eliminar</button></td>
+          <td><button onclick="eliminarCredito(2);">Eliminar</button></td>
         </tr>
     </tbody>
   </table>
