@@ -301,3 +301,23 @@ function buscarCreditos(cedula) {
   }
   return creditosEncontrados;
 }
+
+function pintarCreditos(creditos) {
+  let cmpTabla = document.getElementById("tablaCreditos");
+  let contenido = "";
+  for (let i = 0; i < creditos.length; i++) {
+    contenido += "<tr>" +
+      "<td>" + creditos[i].cedula + "</td>" +
+      "<td>" + creditos[i].nombre + "</td>" +
+      "<td>" + creditos[i].apellido + "</td>" +
+      "<td>" + creditos[i].monto + "</td>" +
+      "<td>" + creditos[i].tasa + "</td>" +
+      "<td>" + creditos[i].plazo + "</td>" +
+      "<td>" + creditos[i].cuota + "</td>" +
+      "<td>" +
+      "<button>Eliminar</button>" +
+      "</td>" + "</tr>"
+  }
+
+  cmpTabla.innerHTML = contenido;
+}
