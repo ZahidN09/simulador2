@@ -2,7 +2,9 @@ let clientes = [{ cedula: "1712345678", nombre: "Juan", apellido: "Pérez", ingr
 { cedula: "1723456789", nombre: "María", apellido: "Gómez", ingresos: 1500, egresos: 600 },
 { cedula: "1734567890", nombre: "Carlos", apellido: "Ramírez", ingresos: 900, egresos: 350 }];
 
-let creditos = [];
+let creditos = [{ cedula: "1712345678", nombre: "Juan", apellido: "Pérez", monto: 3000, tasa: 15, plazo: 12, cuota: 287.50 },
+{ cedula: "1723456789", nombre: "María", apellido: "Gómez", monto: 5000, tasa: 14, plazo: 24, cuota: 237.50 },
+{ cedula: "1734567890", nombre: "Carlos", apellido: "Ramírez", monto: 1500, tasa: 16, plazo: 6, cuota: 290.00 }];
 
 let tasaInteres = 15;
 let clienteSeleccionado = null;
@@ -132,6 +134,7 @@ function ocultarSecciones() {
   document.getElementById("parametros").classList.remove("activa");
   document.getElementById("clientes").classList.remove("activa");
   document.getElementById("credito").classList.remove("activa");
+  document.getElementById("listaCreditos").classList.remove("activa");
 }
 
 function mostrarSeccion(id) {
