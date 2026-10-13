@@ -191,10 +191,14 @@ function pintarClientes() {
     return;
   }
   // ---- fin validación ----
+  guardarCliente();
+  dibujarTablaClientes();
 
+}
+
+function dibujarTablaClientes() {
   let cmpTabla = document.getElementById("tablaClientes");
   let contenido = "";
-  guardarCliente();
   for (let i = 0; i < clientes.length; i++) {
     contenido += "<tr>" +
       "<td>" + clientes[i].cedula + "</td>" +
@@ -204,7 +208,7 @@ function pintarClientes() {
       "<td>" + clientes[i].egresos + "</td>" +
       "<td>" +
       "<button onclick='seleccionarCliente(" + clientes[i].cedula + ")'>Actualizar</button>" +
-      "<button>Eliminar</button>" +
+      "<button onclick='eliminarCliente(" + i + ");'>Eliminar</button>" +
       "</td>" + "</tr>"
   }
 
@@ -320,7 +324,7 @@ function pintarCreditos(creditos) {
       "<td>" + creditos[i].plazo + " meses" + "</td>" +
       "<td>" + creditos[i].cuota.toFixed(2) + "</td>" +
       "<td>" +
-      "<button onclick='eliminarCredito("+i+");'>Eliminar</button>" +
+      "<button onclick='eliminarCredito(" + i + ");'>Eliminar</button>" +
       "</td>" + "</tr>"
   }
 
@@ -337,7 +341,12 @@ function buscarCreditosCliente() {
 
 }
 
-function eliminarCredito(indice){
-  creditos.splice(indice,1);
+function eliminarCredito(indice) {
+  creditos.splice(indice, 1);
   pintarCreditos(creditos);
+}
+
+function eliminarCliente(indice) {
+  clientes.splice(indice, 1);
+  dibujarTablaClientes();
 }
