@@ -11,7 +11,7 @@ let montoCalculado = 0;
 let plazoCalculado = 0;
 let creditoAprobado = false;
 
-
+/*FIN TALLER
 /* =========================================================
    MÓDULO DE VALIDACIÓN
    ========================================================= */
